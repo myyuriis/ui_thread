@@ -3,6 +3,7 @@ package com.example.ui_thread
 import android.os.AsyncTask
 import android.widget.ProgressBar
 import android.app.ProgressDialog
+import java.net.HttpURLConnection
 import java.net.URL
 
 //class ProgressDialogTask(var progressDialog: ProgressDialog): AsyncTask<String,Int,Unit>(){
@@ -46,8 +47,10 @@ import java.net.URL
 class FetchDataTask: AsyncTask<String, Unit, Unit>() {
     override fun doInBackground(vararg p0: String?) {
         val url = URL("https://jsonplaceholder.typicode.com/comments?postId=1")
-        val stringResponse = url.readText()
-        println(stringResponse)
+        val urlConnection = url.openConnection() as HttpURLConnection
+        urlConnection.requestMethod = "GET"
+        val response = urlConnection.inputStream.bufferedReader().readText()
+        println(response)
     }
 }
 
