@@ -3,6 +3,7 @@ package com.example.ui_thread
 import android.os.AsyncTask
 import android.widget.ProgressBar
 import android.app.ProgressDialog
+import org.json.JSONArray
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -50,7 +51,11 @@ class FetchDataTask: AsyncTask<String, Unit, Unit>() {
         val urlConnection = url.openConnection() as HttpURLConnection
         urlConnection.requestMethod = "GET"
         val response = urlConnection.inputStream.bufferedReader().readText()
-        println(response)
+//        println(response)
+        
+        val jsonArray = JSONArray(response)
+        println(jsonArray.getJSONObject(0))
+        println(jsonArray.getJSONObject(0).get("email"))
     }
 }
 
